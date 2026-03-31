@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research -- AP.HAUS</title>
+  <meta name="description" content="Four areas where we push the boundary between what models can do and what practitioners can ship.">
+  <meta property="og:title" content="Research -- AP.HAUS">
+  <meta property="og:description" content="Model compression, inference optimization, agent architectures, prompt engineering.">
+  <meta property="og:image" content="https://ap.haus/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='24' width='4' height='4' fill='%233d3530'/><rect x='8' y='20' width='4' height='4' fill='%233d3530'/><rect x='12' y='16' width='4' height='4' fill='%233d3530'/><rect x='12' y='12' width='4' height='4' fill='%233d3530'/><rect x='16' y='8' width='4' height='4' fill='%233d3530' opacity='.6'/><rect x='24' y='24' width='4' height='4' fill='%233d3530'/><rect x='20' y='20' width='4' height='4' fill='%233d3530'/><rect x='16' y='16' width='4' height='4' fill='%233d3530'/><rect x='16' y='12' width='4' height='4' fill='%233d3530'/><rect x='8' y='20' width='16' height='4' fill='%233d3530' opacity='.15'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <canvas id="field"></canvas>
+  <div class="cursor-dot" id="cursor"></div>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">AP.HAUS</a>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/research/" class="active">RESEARCH</a>
+      <a href="/products/">PRODUCTS</a>
+      <a href="/posts/">WRITING</a>
+      <a href="/about/">ABOUT</a>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">RESEARCH</p>
+        <p class="section-sub">Four areas where we push the boundary between what models can do and what practitioners can ship.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-check"></div>
+
+  <!-- COMPRESSION -->
+  <section class="research" id="compression">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label" style="font-size: clamp(14px, 2vw, 18px);">01</p>
+      </div>
+      <div class="research-card reveal" data-idx="01" style="border: none; background: none; padding: 0;">
+        <h3 style="font-size: 16px; letter-spacing: 3px; margin-bottom: 20px;">MODEL COMPRESSION</h3>
+        <p style="margin-bottom: 16px;">Distillation and quantization techniques that preserve capability while dramatically reducing compute. Our work on prompt-level compression achieves 60-80% token reduction with minimal semantic loss.</p>
+        <p style="margin-bottom: 16px;">The core insight: most of what LLMs process is structural redundancy. Natural language is full of syntactic scaffolding, filler phrases, and implicit context that models reconstruct anyway. By identifying and compressing these patterns at the prompt level, we reduce token consumption without losing the information that actually drives model behavior.</p>
+        <p style="margin-bottom: 16px;">This research directly produced Wren, our LoRA fine-tuned compression model. Rather than compressing at the model level (quantization, pruning), we compress at the input level, which works with any model regardless of size or architecture.</p>
+        <span class="tag">WREN</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-diag"></div>
+
+  <!-- INFERENCE -->
+  <section class="research" id="inference">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label" style="font-size: clamp(14px, 2vw, 18px);">02</p>
+      </div>
+      <div class="research-card reveal" data-idx="02" style="border: none; background: none; padding: 0;">
+        <h3 style="font-size: 16px; letter-spacing: 3px; margin-bottom: 20px;">INFERENCE OPTIMIZATION</h3>
+        <p style="margin-bottom: 16px;">Local inference pipelines for Apple Silicon. MLX-native model serving, speculative decoding, and context caching strategies that make on-device AI practical for development workflows.</p>
+        <p style="margin-bottom: 16px;">We run inference on consumer hardware. Our home lab runs Ollama across 4x Tesla M60 GPUs with 32GB total VRAM, serving models for chat, code generation, and tool use. On the local side, MLX on Apple Silicon handles lightweight models with surprisingly good throughput.</p>
+        <p style="margin-bottom: 16px;">The goal isn't to replace cloud inference but to make local inference viable for the 80% of tasks that don't need frontier models. A 1.5B model running locally with zero latency and zero cost handles a lot of practical development work.</p>
+        <span class="tag">MLX / APPLE SILICON</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-dot"></div>
+
+  <!-- AGENTS -->
+  <section class="research" id="agents">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label" style="font-size: clamp(14px, 2vw, 18px);">03</p>
+      </div>
+      <div class="research-card reveal" data-idx="03" style="border: none; background: none; padding: 0;">
+        <h3 style="font-size: 16px; letter-spacing: 3px; margin-bottom: 20px;">AGENT ARCHITECTURES</h3>
+        <p style="margin-bottom: 16px;">Multi-agent orchestration patterns for complex development tasks. Session multiplexing, context isolation, and parallel execution frameworks that scale agent productivity.</p>
+        <p style="margin-bottom: 16px;">Single-agent workflows hit a ceiling fast. Complex tasks require parallel research, specialized tool access, and coordinated execution across multiple contexts. We've built patterns for running 5+ agents simultaneously, each with their own context window, tools, and objectives, converging on a shared outcome.</p>
+        <p style="margin-bottom: 16px;">This work produced Flock, our macOS agent multiplexer. But the architecture patterns are general. We're exploring how multi-agent coordination maps to team workflows, where each agent operates like a specialist with bounded context and clear deliverables.</p>
+        <span class="tag">FLOCK</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-check"></div>
+
+  <!-- PROMPT ENGINEERING -->
+  <section class="research" id="prompting">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label" style="font-size: clamp(14px, 2vw, 18px);">04</p>
+      </div>
+      <div class="research-card reveal" data-idx="04" style="border: none; background: none; padding: 0;">
+        <h3 style="font-size: 16px; letter-spacing: 3px; margin-bottom: 20px;">PROMPT ENGINEERING</h3>
+        <p style="margin-bottom: 16px;">Systematic approaches to prompt design. Compression-aware prompting, token-efficient instruction patterns, and automated prompt optimization through empirical measurement.</p>
+        <p style="margin-bottom: 16px;">Most prompt engineering is vibes-based. We measure. Every prompt pattern gets benchmarked for token cost, output quality, and consistency across runs. This empirical approach reveals which techniques actually work versus which just feel right.</p>
+        <p style="margin-bottom: 16px;">Compression-aware prompting is particularly interesting: designing prompts that maintain effectiveness even after compression, ensuring the compressed representation preserves the instruction signals that matter most to the model.</p>
+        <span class="tag">APPLIED</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-diag"></div>
+
+  <section class="contact">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">GET INVOLVED</p>
+        <p class="section-sub">All research ships as open source tools. Star our repos, open issues, or fork and build on what we ship.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="https://github.com/Divagation" class="contact-link" target="_blank" rel="noopener">GITHUB</a>
+        <a href="/posts/" class="contact-link">READ OUR WRITING</a>
+        <a href="mailto:hello@ap.haus" class="contact-link">EMAIL</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer-brand">AP.HAUS 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/Divagation" target="_blank" rel="noopener">GITHUB</a>
+      <a href="https://baa.haus" target="_blank" rel="noopener">BAA.HAUS</a>
+      <a href="#">TOP</a>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>

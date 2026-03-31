@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing -- AP.HAUS</title>
+  <meta name="description" content="Research notes, benchmarks, and technical writing from AP.HAUS.">
+  <meta property="og:title" content="Writing -- AP.HAUS">
+  <meta property="og:description" content="Research notes, benchmarks, and technical writing.">
+  <meta property="og:image" content="https://ap.haus/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='24' width='4' height='4' fill='%233d3530'/><rect x='8' y='20' width='4' height='4' fill='%233d3530'/><rect x='12' y='16' width='4' height='4' fill='%233d3530'/><rect x='12' y='12' width='4' height='4' fill='%233d3530'/><rect x='16' y='8' width='4' height='4' fill='%233d3530' opacity='.6'/><rect x='24' y='24' width='4' height='4' fill='%233d3530'/><rect x='20' y='20' width='4' height='4' fill='%233d3530'/><rect x='16' y='16' width='4' height='4' fill='%233d3530'/><rect x='16' y='12' width='4' height='4' fill='%233d3530'/><rect x='8' y='20' width='16' height='4' fill='%233d3530' opacity='.15'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <canvas id="field"></canvas>
+  <div class="cursor-dot" id="cursor"></div>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">AP.HAUS</a>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/research/">RESEARCH</a>
+      <a href="/products/">PRODUCTS</a>
+      <a href="/posts/" class="active">WRITING</a>
+      <a href="/about/">ABOUT</a>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">WRITING</p>
+        <p class="section-sub">Research notes, benchmarks, and technical writing. We publish what we learn.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-check"></div>
+
+  <section class="research">
+    <div class="container">
+      <div class="posts-grid reveal-stagger" id="posts-grid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer-brand">AP.HAUS 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/Divagation" target="_blank" rel="noopener">GITHUB</a>
+      <a href="https://baa.haus" target="_blank" rel="noopener">BAA.HAUS</a>
+      <a href="#">TOP</a>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AP.HAUS — AI Research & Applied Intelligence</title>
+  <title>AP.HAUS -- AI Research & Applied Intelligence</title>
   <meta name="description" content="AP.HAUS is an AI research company building tools at the forefront of model compression, agent architectures, and applied intelligence.">
   <meta property="og:title" content="AP.HAUS">
   <meta property="og:description" content="AI research that ships as products. Model compression, inference optimization, agent architectures.">
@@ -18,1018 +18,135 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: oklch(0.975 0.005 80);
-      --ink: oklch(0.22 0.025 55);
-      --muted: oklch(0.58 0.02 65);
-      --accent: oklch(0.60 0.10 50);
-      --accent-soft: oklch(0.90 0.03 55);
-      --border: oklch(0.88 0.01 75);
-      --code-bg: oklch(0.94 0.008 75);
-      --pixel: 'Silkscreen', cursive;
-      --body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-      --mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
-      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-      --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--body);
-      background: var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* particle field canvas */
-    #field {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── NAV ─── */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 32px;
-      background: oklch(0.975 0.005 80 / 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      transition: padding 300ms var(--ease-out-quart),
-                  background 300ms var(--ease-out-quart);
-    }
-
-    .nav.scrolled {
-      padding: 12px 32px;
-      background: oklch(0.975 0.005 80 / 0.95);
-    }
-
-    .nav-brand {
-      font-family: var(--pixel);
-      font-size: 13px;
-      letter-spacing: 2px;
-    }
-
-    .nav-links { display: flex; gap: 28px; }
-
-    .nav-links a {
-      font-family: var(--pixel);
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      position: relative;
-      transition: color 200ms var(--ease-out-quart);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 250ms steps(5);
-    }
-
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px 48px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero h1 {
-      font-family: var(--pixel);
-      font-size: clamp(48px, 10vw, 96px);
-      font-weight: 400;
-      letter-spacing: 12px;
-      margin-bottom: 12px;
-    }
-
-    .hero h1 span {
-      display: inline-block;
-      opacity: 0;
-      animation: letter-in 500ms var(--ease-out-expo) forwards;
-      animation-delay: calc(400ms + var(--i, 0) * 110ms);
-      cursor: default;
-      transition: color 150ms var(--ease-out-quart);
-    }
-
-    @keyframes letter-in {
-      from { opacity: 0; transform: translateY(10px) scale(0.85); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .hero h1 span:hover {
-      color: var(--accent);
-      animation: letter-hop 350ms var(--ease-out-expo);
-    }
-
-    @keyframes letter-hop {
-      0% { transform: translateY(0) rotate(0deg); }
-      35% { transform: translateY(-8px) rotate(-5deg); }
-      65% { transform: translateY(2px) rotate(2deg); }
-      100% { transform: translateY(0) rotate(0deg); }
-    }
-
-    .tagline {
-      font-family: var(--pixel);
-      font-size: clamp(9px, 1.6vw, 13px);
-      color: var(--muted);
-      letter-spacing: 5px;
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: enter-up 700ms var(--ease-out-expo) 1000ms forwards;
-    }
-
-    .hero-desc {
-      font-size: clamp(15px, 2vw, 18px);
-      line-height: 1.75;
-      color: var(--muted);
-      max-width: 42ch;
-      margin-bottom: 40px;
-      font-weight: 400;
-      opacity: 0;
-      animation: enter-up 700ms var(--ease-out-expo) 1150ms forwards;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      opacity: 0;
-      animation: enter-up 700ms var(--ease-out-expo) 1300ms forwards;
-    }
-
-    @keyframes enter-drop {
-      from { opacity: 0; transform: translateY(-24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes enter-up {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .btn {
-      font-family: var(--pixel);
-      font-size: 9px;
-      letter-spacing: 2px;
-      padding: 14px 28px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: border-color 200ms var(--ease-out-quart),
-                  color 200ms var(--ease-out-quart),
-                  transform 200ms var(--ease-out-quart),
-                  background 200ms var(--ease-out-quart);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* pixel fill sweep on hover */
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='2' height='2' fill='%23d4cdc2'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23d4cdc2'/%3E%3C/svg%3E");
-      background-size: 4px 4px;
-      image-rendering: pixelated;
-      opacity: 0;
-      transform: translateX(-101%);
-      transition: transform 300ms steps(8), opacity 150ms;
-    }
-
-    .btn:hover::before {
-      transform: translateX(0);
-      opacity: 0.3;
-    }
-
-    .btn:hover {
-      border-color: var(--ink);
-      color: var(--ink);
-      transform: translateY(-2px);
-    }
-
-    .btn:active {
-      transform: translateY(1px) scale(0.97);
-      transition-duration: 80ms;
-    }
-
-    .btn.primary {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .btn.primary::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='2' height='2' fill='%23f5f1eb'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23f5f1eb'/%3E%3C/svg%3E");
-      opacity: 0;
-    }
-
-    .btn.primary:hover {
-      background: oklch(0.28 0.025 55);
-      transform: translateY(-2px);
-    }
-
-    .btn.primary:hover::before {
-      opacity: 0.15;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: hint-enter 700ms var(--ease-out-expo) 1.8s forwards,
-                 hint-bob 2.5s var(--ease-out-quart) 2.6s infinite;
-    }
-
-    .scroll-hint svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--muted);
-      stroke-width: 1.5;
-      fill: none;
-    }
-
-    @keyframes hint-enter {
-      from { opacity: 0; transform: translateX(-50%) translateY(16px); }
-      to { opacity: 0.5; transform: translateX(-50%) translateY(0); }
-    }
-
-    @keyframes hint-bob {
-      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
-      50% { transform: translateX(-50%) translateY(6px); opacity: 0.15; }
-    }
-
-    /* ─── SHARED ─── */
-    section { position: relative; z-index: 1; }
-
-    .container {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section-label {
-      font-family: var(--pixel);
-      font-size: clamp(16px, 2.5vw, 22px);
-      font-weight: 400;
-      letter-spacing: 4px;
-      margin-bottom: 12px;
-    }
-
-    .section-sub {
-      font-size: clamp(14px, 1.8vw, 16px);
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 52ch;
-      margin-bottom: 48px;
-    }
-
-    /* ─── DITHER DIVIDERS ─── */
-    .dither {
-      height: 6px;
-      image-rendering: pixelated;
-      transform: scaleX(0);
-      transition: transform 600ms var(--ease-out-expo);
-    }
-
-    .dither.visible { transform: scaleX(1); }
-
-    .dither-check {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='2' height='2' fill='%23d4cdc2'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23d4cdc2'/%3E%3C/svg%3E");
-      background-size: 4px 4px;
-      mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-    }
-
-    .dither-diag {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M0 6L6 0' stroke='%23d4cdc2' stroke-width='1.2'/%3E%3C/svg%3E");
-      background-size: 6px 6px;
-      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    }
-
-    .dither-dot {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Crect x='3' y='3' width='2' height='2' fill='%23d4cdc2'/%3E%3C/svg%3E");
-      background-size: 8px 8px;
-      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-    }
-
-    /* ─── REVEAL ANIMATION ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 600ms var(--ease-out-expo),
-                  transform 600ms var(--ease-out-expo);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-stagger > .reveal {
-      transition-delay: calc(var(--s, 0) * 120ms);
-    }
-
-    /* ─── RESEARCH ─── */
-    .research { padding: 96px 0 72px; }
-
-    .research-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-    }
-
-    .research-card {
-      padding: 32px 28px;
-      background: oklch(0.975 0.005 80 / 0.6);
-      border: 1px solid var(--border);
-      position: relative;
-      transition: border-color 300ms var(--ease-out-quart);
-      overflow: hidden;
-    }
-
-    /* scanline sweep on hover */
-    .research-card::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, transparent, var(--accent), transparent);
-      opacity: 0;
-      top: 0;
-      transform: translateY(-1px);
-      transition: opacity 0ms;
-    }
-
-    .research-card:hover {
-      border-color: var(--accent);
-    }
-
-    .research-card:hover::after {
-      opacity: 0.5;
-      animation: scanline 600ms steps(20) forwards;
-    }
-
-    @keyframes scanline {
-      from { transform: translateY(0); }
-      to { transform: translateY(calc(100% + 200px)); opacity: 0; }
-    }
-
-    .research-card::before {
-      content: attr(data-idx);
-      font-family: var(--pixel);
-      font-size: 9px;
-      color: var(--accent);
-      letter-spacing: 1px;
-      display: block;
-      margin-bottom: 16px;
-      opacity: 0.7;
-    }
-
-    .research-card h3 {
-      font-family: var(--pixel);
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 14px;
-      font-weight: 400;
-    }
-
-    .research-card p {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .research-card .tag {
-      display: inline-block;
-      font-family: var(--pixel);
-      font-size: 8px;
-      letter-spacing: 1px;
-      color: var(--accent);
-      border: 1px solid var(--accent-soft);
-      padding: 4px 10px;
-      margin-top: 16px;
-      transition: border-color 200ms var(--ease-out-quart),
-                  color 200ms var(--ease-out-quart);
-    }
-
-    .research-card:hover .tag {
-      border-color: var(--accent);
-      color: var(--ink);
-    }
-
-    /* ─── PRODUCTS ─── */
-    .products { padding: 72px 0 96px; }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .product-card {
-      padding: 36px 28px;
-      border: 1px solid var(--border);
-      background: oklch(0.975 0.005 80 / 0.6);
-      display: flex;
-      flex-direction: column;
-      transition: border-color 300ms var(--ease-out-quart),
-                  transform 300ms var(--ease-out-quart);
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* vertical scanline on product hover */
-    .product-card::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-      opacity: 0;
-      left: 0;
-    }
-
-    .product-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .product-card:hover::after {
-      opacity: 0.5;
-      animation: vscanline 500ms steps(16) forwards;
-    }
-
-    @keyframes vscanline {
-      from { transform: translateX(0); }
-      to { transform: translateX(calc(100% + 300px)); opacity: 0; }
-    }
-
-    .product-icon {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 24px;
-      border-radius: 8px;
-      transition: transform 300ms var(--ease-out-quart);
-    }
-
-    .product-card:hover .product-icon {
-      animation: icon-wobble 600ms var(--ease-out-quart);
-    }
-
-    @keyframes icon-wobble {
-      0% { transform: rotate(0deg); }
-      20% { transform: rotate(-6deg) scale(1.05); }
-      40% { transform: rotate(4deg); }
-      60% { transform: rotate(-2deg); }
-      80% { transform: rotate(1deg); }
-      100% { transform: rotate(0deg); }
-    }
-
-    .product-card h3 {
-      font-family: var(--pixel);
-      font-size: 14px;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      font-weight: 400;
-    }
-
-    .product-card .product-type {
-      font-family: var(--pixel);
-      font-size: 8px;
-      letter-spacing: 1px;
-      color: var(--accent);
-      margin-bottom: 18px;
-    }
-
-    .product-card p {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--muted);
-      flex: 1;
-    }
-
-    .product-card .product-link {
-      font-family: var(--pixel);
-      font-size: 9px;
-      letter-spacing: 1px;
-      color: var(--muted);
-      margin-top: 24px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 200ms var(--ease-out-quart);
-    }
-
-    .product-card .product-link:hover {
-      color: var(--ink);
-    }
-
-    .product-card .product-link svg {
-      width: 12px;
-      height: 12px;
-      stroke: currentColor;
-      stroke-width: 1.5;
-      fill: none;
-      transition: transform 200ms var(--ease-out-quart);
-    }
-
-    .product-card .product-link:hover svg {
-      transform: translateX(3px);
-    }
-
-    .product-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 24px;
-    }
-
-    .product-meta .product-link { margin-top: 0; }
-
-    .star-count {
-      font-family: var(--pixel);
-      font-size: 9px;
-      letter-spacing: 1px;
-      color: var(--muted);
-      opacity: 0;
-      transition: opacity 300ms var(--ease-out-quart);
-    }
-
-    .star-count.loaded { opacity: 1; }
-
-    .product-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-style: dashed;
-    }
-
-    .product-cta:hover { transform: none; }
-
-    .cta-inner {
-      text-align: center;
-    }
-
-    .cta-inner h3 {
-      font-family: var(--pixel);
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 14px;
-      font-weight: 400;
-    }
-
-    .cta-inner p {
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
-    .cta-inner .btn {
-      font-size: 8px;
-      padding: 12px 20px;
-    }
-
-    /* ─── ABOUT ─── */
-    .about { padding: 96px 0; }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    .about-text p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .about-text p:last-child { margin-bottom: 0; }
-
-    .about-principles {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .principle {
-      padding-left: 20px;
-      border-left: 2px solid var(--border);
-      transition: border-color 300ms var(--ease-out-quart),
-                  transform 300ms var(--ease-out-quart);
-    }
-
-    .principle:hover {
-      border-left-color: var(--accent);
-      transform: translateX(4px);
-    }
-
-    .principle h4 {
-      font-family: var(--pixel);
-      font-size: 10px;
-      letter-spacing: 2px;
-      margin-bottom: 6px;
-      font-weight: 400;
-    }
-
-    .principle p {
-      font-size: 13px;
-      line-height: 1.65;
-      color: var(--muted);
-    }
-
-    /* ─── CONTACT ─── */
-    .contact {
-      padding: 72px 0;
-      text-align: center;
-    }
-
-    .contact .section-sub {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .contact-link {
-      font-family: var(--pixel);
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: var(--muted);
-      padding: 12px 24px;
-      border: 1px solid var(--border);
-      transition: border-color 200ms var(--ease-out-quart),
-                  color 200ms var(--ease-out-quart),
-                  transform 200ms var(--ease-out-quart);
-    }
-
-    .contact-link:hover {
-      border-color: var(--ink);
-      color: var(--ink);
-      transform: translateY(-2px);
-    }
-
-    /* ─── FOOTER ─── */
-    .footer {
-      position: relative;
-      z-index: 1;
-      padding: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-brand {
-      font-family: var(--pixel);
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--muted);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer-links a {
-      font-family: var(--pixel);
-      font-size: 9px;
-      letter-spacing: 1px;
-      color: var(--muted);
-      transition: color 200ms var(--ease-out-quart);
-    }
-
-    .footer-links a:hover { color: var(--ink); }
-
-    /* ─── PIXEL CURSOR ─── */
-    .cursor-dot {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: var(--accent);
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0;
-      transition: opacity 300ms;
-      image-rendering: pixelated;
-    }
-
-    body:hover .cursor-dot { opacity: 0.6; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      .nav { padding: 14px 20px; }
-      .nav-links { gap: 16px; }
-      .nav-links a { font-size: 9px; }
-
-      .hero { padding: 100px 20px 48px; }
-      .hero h1 { letter-spacing: 6px; }
-
-      .research-grid { grid-template-columns: 1fr; }
-      .products-grid { grid-template-columns: 1fr; }
-
-      .about-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .footer {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .nav-links { display: none; }
-      .hero h1 { letter-spacing: 4px; }
-      .tagline { letter-spacing: 3px; }
-      .actions { flex-direction: column; align-items: center; }
-      .contact-links { flex-direction: column; align-items: center; }
-    }
-
-    /* mobile nav toggle */
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .nav-toggle svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--ink);
-      stroke-width: 1.5;
-      fill: none;
-    }
-
-    @media (max-width: 480px) {
-      .nav-toggle { display: block; }
-
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background: oklch(0.975 0.005 80 / 0.95);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid var(--border);
-        padding: 20px 32px;
-        gap: 16px;
-        transform: translateY(-8px);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform 300ms var(--ease-out-expo),
-                    opacity 300ms var(--ease-out-expo);
-      }
-
-      .nav-links.open {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
-
-    /* ─── REDUCED MOTION ─── */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-      .reveal { opacity: 1; transform: none; }
-      .dither { transform: scaleX(1); }
-      #field { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
   <canvas id="field"></canvas>
   <div class="cursor-dot" id="cursor"></div>
 
-  <!-- NAV -->
   <nav class="nav">
-    <a href="#" class="nav-brand">AP.HAUS</a>
-    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+    <a href="/" class="nav-brand">AP.HAUS</a>
+    <button class="nav-toggle" aria-label="Toggle menu">
       <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
     </button>
     <div class="nav-links">
-      <a href="#research">RESEARCH</a>
-      <a href="#products">PRODUCTS</a>
-      <a href="#about">ABOUT</a>
-      <a href="#contact">CONTACT</a>
+      <a href="/research/">RESEARCH</a>
+      <a href="/products/">PRODUCTS</a>
+      <a href="/posts/">WRITING</a>
+      <a href="/about/">ABOUT</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <h1 id="hero-title"></h1>
-
     <p class="tagline">AI RESEARCH & APPLIED INTELLIGENCE</p>
-
     <p class="hero-desc">
       We research how models think, compress, and act. Then we ship what we learn as tools you can use today.
     </p>
-
     <div class="actions">
-      <a href="#research" class="btn primary">OUR RESEARCH</a>
-      <a href="#products" class="btn">VIEW PRODUCTS</a>
+      <a href="/research/" class="btn primary">OUR RESEARCH</a>
+      <a href="/products/" class="btn">VIEW PRODUCTS</a>
     </div>
-
     <div class="scroll-hint">
       <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
   </section>
 
-  <!-- DITHER -->
   <div class="dither dither-check"></div>
 
-  <!-- RESEARCH -->
-  <section class="research" id="research">
+  <!-- RESEARCH TEASER -->
+  <section class="teaser">
     <div class="container">
-      <div class="reveal">
+      <div class="reveal teaser-header">
         <p class="section-label">RESEARCH</p>
-        <p class="section-sub">Four areas where we push the boundary between what models can do and what practitioners can ship.</p>
+        <a href="/research/" class="teaser-link">
+          ALL RESEARCH <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
       </div>
 
       <div class="research-grid reveal-stagger">
-        <div class="research-card reveal" style="--s:0" data-idx="01">
+        <a href="/research/#compression" class="research-card reveal" style="--s:0" data-idx="01">
           <h3>MODEL COMPRESSION</h3>
-          <p>Distillation and quantization techniques that preserve capability while dramatically reducing compute. Our work on prompt-level compression achieves 60-80% token reduction with minimal semantic loss.</p>
+          <p>Prompt-level compression achieving 60-80% token reduction with minimal semantic loss.</p>
           <span class="tag">WREN</span>
-        </div>
-        <div class="research-card reveal" style="--s:1" data-idx="02">
-          <h3>INFERENCE OPTIMIZATION</h3>
-          <p>Local inference pipelines for Apple Silicon. MLX-native model serving, speculative decoding, and context caching strategies that make on-device AI practical for development workflows.</p>
-          <span class="tag">MLX / APPLE SILICON</span>
-        </div>
-        <div class="research-card reveal" style="--s:2" data-idx="03">
+        </a>
+        <a href="/research/#agents" class="research-card reveal" style="--s:1" data-idx="02">
           <h3>AGENT ARCHITECTURES</h3>
-          <p>Multi-agent orchestration patterns for complex development tasks. Session multiplexing, context isolation, and parallel execution frameworks that scale agent productivity.</p>
+          <p>Multi-agent orchestration, session multiplexing, and parallel execution frameworks.</p>
           <span class="tag">FLOCK</span>
-        </div>
-        <div class="research-card reveal" style="--s:3" data-idx="04">
-          <h3>PROMPT ENGINEERING</h3>
-          <p>Systematic approaches to prompt design. Compression-aware prompting, token-efficient instruction patterns, and automated prompt optimization through empirical measurement.</p>
-          <span class="tag">APPLIED</span>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- DITHER -->
   <div class="dither dither-diag"></div>
 
-  <!-- PRODUCTS -->
-  <section class="products" id="products">
+  <!-- PRODUCTS TEASER -->
+  <section class="teaser">
     <div class="container">
-      <div class="reveal">
+      <div class="reveal teaser-header">
         <p class="section-label">PRODUCTS</p>
-        <p class="section-sub">Research that ships. Every product is a direct output of our research program.</p>
+        <a href="/products/" class="teaser-link">
+          ALL PRODUCTS <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
       </div>
 
-      <div class="products-grid reveal-stagger">
+      <div class="products-grid reveal-stagger" style="grid-template-columns: repeat(2, 1fr);">
         <div class="product-card reveal" style="--s:0">
-          <img class="product-icon" src="flock-icon.png?v=2" alt="Flock">
+          <img class="product-icon" src="/flock-icon.png?v=2" alt="Flock">
           <h3>FLOCK</h3>
           <span class="product-type">AGENT MULTIPLEXER</span>
-          <p>Native macOS app for running multiple Claude Code sessions in parallel. Tabbed interface, 7 themes, agent mode, memory, usage tracking, Wren compression built in.</p>
+          <p>Native macOS app for running multiple Claude Code sessions in parallel.</p>
           <div class="product-meta">
-            <a href="https://github.com/Divagation/flock" class="product-link" target="_blank" rel="noopener">
-              GITHUB <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <a href="/products/#flock" class="product-link">
+              DETAILS <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
             <span class="star-count" data-repo="Divagation/flock"></span>
           </div>
         </div>
-
         <div class="product-card reveal" style="--s:1">
-          <img class="product-icon" src="wren-logo.png" alt="Wren">
+          <img class="product-icon" src="/wren-logo.png" alt="Wren">
           <h3>WREN</h3>
           <span class="product-type">COMPRESSION MODEL</span>
-          <p>LoRA fine-tuned 1.5B model for prompt compression. 60-80% token savings, local MLX inference on Apple Silicon. Integrated into Flock and Claude Code via MCP.</p>
+          <p>LoRA fine-tuned 1.5B model for prompt compression. Local MLX inference.</p>
           <div class="product-meta">
-            <a href="https://github.com/Divagation/wren" class="product-link" target="_blank" rel="noopener">
-              GITHUB <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <a href="/products/#wren" class="product-link">
+              DETAILS <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
             <span class="star-count" data-repo="Divagation/wren"></span>
           </div>
         </div>
-
-        <div class="product-card product-cta reveal" style="--s:2">
-          <div class="cta-inner">
-            <h3>FOLLOW OUR WORK</h3>
-            <p>All research and tools are open source. Star our repos, open issues, or fork and build on what we ship.</p>
-            <a href="https://github.com/Divagation" class="btn" target="_blank" rel="noopener">GITHUB / DIVAGATION</a>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- DITHER -->
   <div class="dither dither-dot"></div>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
+  <!-- WRITING TEASER -->
+  <section class="teaser">
     <div class="container">
-      <div class="reveal">
-        <p class="section-label">ABOUT</p>
+      <div class="reveal teaser-header">
+        <p class="section-label">WRITING</p>
+        <a href="/posts/" class="teaser-link">
+          ALL POSTS <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
       </div>
 
-      <div class="about-content">
-        <div class="about-text reveal">
-          <p>We build tools that make AI more efficient, accessible, and useful. Our research ships as products.</p>
-          <p>Every tool we release started as a problem we hit in our own work. Model context too expensive? We built a compression model. Need to run five agents at once? We built a multiplexer. The research is always grounded in practice.</p>
-          <p>Based in Pittsburgh. Open source by default.</p>
-        </div>
-
-        <div class="about-principles reveal-stagger">
-          <div class="principle reveal" style="--s:0">
-            <h4>SHIP THE RESEARCH</h4>
-            <p>Papers are nice. Products are better. Every insight becomes a tool someone can use today.</p>
-          </div>
-          <div class="principle reveal" style="--s:1">
-            <h4>LOCAL FIRST</h4>
-            <p>Your data, your hardware, your inference. We build for Apple Silicon and local compute whenever possible.</p>
-          </div>
-          <div class="principle reveal" style="--s:2">
-            <h4>OPEN BY DEFAULT</h4>
-            <p>All research and tools on GitHub. The best way to advance AI is to let people build on your work.</p>
-          </div>
-          <div class="principle reveal" style="--s:3">
-            <h4>EFFICIENCY OVER SCALE</h4>
-            <p>Smaller models, fewer tokens, less compute. We optimize for doing more with less.</p>
-          </div>
-        </div>
-      </div>
+      <div class="posts-grid reveal-stagger" id="latest-posts"></div>
     </div>
   </section>
 
-  <!-- DITHER -->
   <div class="dither dither-check"></div>
 
   <!-- CONTACT -->
-  <section class="contact" id="contact">
+  <section class="contact">
     <div class="container">
       <div class="reveal">
         <p class="section-label">CONTACT</p>
         <p class="section-sub">Interested in our research? Want to collaborate? We're always open to conversation.</p>
       </div>
-
       <div class="contact-links reveal">
         <a href="https://github.com/Divagation" class="contact-link" target="_blank" rel="noopener">GITHUB</a>
         <a href="https://baa.haus" class="contact-link" target="_blank" rel="noopener">BAA.HAUS</a>
@@ -1038,7 +155,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <span class="footer-brand">AP.HAUS 2026</span>
     <div class="footer-links">
@@ -1048,278 +164,6 @@
     </div>
   </footer>
 
-  <script>
-    // Per-letter hero title
-    (function() {
-      const title = document.getElementById('hero-title');
-      const text = 'AP.HAUS';
-      text.split('').forEach(function(ch, i) {
-        const span = document.createElement('span');
-        span.textContent = ch;
-        span.style.setProperty('--i', i);
-        span.addEventListener('animationend', function handler() {
-          if (this.style.animation || getComputedStyle(this).animationName === 'letter-in') {
-            this.style.opacity = '1';
-          }
-        });
-        span.addEventListener('mouseenter', function() {
-          this.style.opacity = '1';
-          this.style.animation = 'none';
-          void this.offsetHeight;
-          this.style.animation = 'letter-hop 350ms var(--ease-out-expo)';
-        });
-        title.appendChild(span);
-      });
-    })();
-
-    // Intersection Observer for reveals + dithers
-    (function() {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-      document.querySelectorAll('.reveal, .dither').forEach(function(el) {
-        observer.observe(el);
-      });
-    })();
-
-    // Pixel cursor follower
-    (function() {
-      var dot = document.getElementById('cursor');
-      var grid = 8;
-      document.addEventListener('mousemove', function(e) {
-        var x = Math.round(e.clientX / grid) * grid;
-        var y = Math.round(e.clientY / grid) * grid;
-        dot.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-      });
-    })();
-
-    // Drifting pixel particle field
-    (function() {
-      var canvas = document.getElementById('field');
-      var ctx = canvas.getContext('2d');
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var particles = [];
-      var GRID = 4; // snap positions to 4px grid
-      var COUNT = 80;
-      var mx = -9999, my = -9999;
-
-      document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
-      document.addEventListener('mouseleave', function() { mx = -9999; my = -9999; });
-
-      function resize() {
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
-        ctx.scale(dpr, dpr);
-      }
-
-      function seed() {
-        particles = [];
-        for (var i = 0; i < COUNT; i++) {
-          particles.push({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            vx: (Math.random() - 0.5) * 0.15,
-            vy: (Math.random() - 0.5) * 0.12,
-            size: Math.random() > 0.7 ? 3 : 2,
-            alpha: Math.random() * 0.18 + 0.04,
-            phase: Math.random() * Math.PI * 2,
-            drift: Math.random() * 0.002 + 0.001
-          });
-        }
-      }
-
-      function draw(t) {
-        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        var w = window.innerWidth;
-        var h = window.innerHeight;
-
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          // mouse repulsion
-          var dx = p.x - mx, dy = p.y - my;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120 && dist > 0) {
-            var force = (120 - dist) / 120 * 0.8;
-            p.x += (dx / dist) * force;
-            p.y += (dy / dist) * force;
-          }
-
-          p.x += p.vx + Math.sin(t * p.drift + p.phase) * 0.08;
-          p.y += p.vy + Math.cos(t * p.drift * 0.7 + p.phase) * 0.06;
-
-          // wrap
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) p.y = h + 10;
-          if (p.y > h + 10) p.y = -10;
-
-          // snap to pixel grid
-          var sx = Math.round(p.x / GRID) * GRID;
-          var sy = Math.round(p.y / GRID) * GRID;
-
-          // pulse alpha
-          var a = p.alpha * (0.6 + 0.4 * Math.sin(t * 0.001 + p.phase));
-
-          ctx.fillStyle = 'rgba(90, 78, 65, ' + a + ')';
-          ctx.fillRect(sx, sy, p.size, p.size);
-        }
-
-        requestAnimationFrame(draw);
-      }
-
-      resize();
-      seed();
-      requestAnimationFrame(draw);
-      window.addEventListener('resize', function() {
-        resize();
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(dpr, dpr);
-      });
-    })();
-
-    // Nav scroll state
-    (function() {
-      var nav = document.querySelector('.nav');
-      var last = 0;
-      function check() {
-        var y = window.scrollY;
-        if (y > 60 && !nav.classList.contains('scrolled')) nav.classList.add('scrolled');
-        else if (y <= 60 && nav.classList.contains('scrolled')) nav.classList.remove('scrolled');
-        last = y;
-      }
-      window.addEventListener('scroll', check, { passive: true });
-    })();
-
-    // Research card index flicker on reveal
-    (function() {
-      var cards = document.querySelectorAll('.research-card');
-      var flickerObs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            var el = entry.target;
-            var final = el.getAttribute('data-idx');
-            var count = 0;
-            var interval = setInterval(function() {
-              el.setAttribute('data-idx', '0' + Math.floor(Math.random() * 10));
-              count++;
-              if (count > 6) {
-                clearInterval(interval);
-                el.setAttribute('data-idx', final);
-              }
-            }, 50);
-            flickerObs.unobserve(el);
-          }
-        });
-      }, { threshold: 0.3 });
-      cards.forEach(function(c) { flickerObs.observe(c); });
-    })();
-
-    // Fetch GitHub star counts
-    (function() {
-      document.querySelectorAll('.star-count').forEach(function(el) {
-        var repo = el.getAttribute('data-repo');
-        fetch('https://api.github.com/repos/' + repo)
-          .then(function(r) { return r.json(); })
-          .then(function(d) {
-            if (d.stargazers_count !== undefined) {
-              el.textContent = d.stargazers_count + ' \u2605';
-              el.classList.add('loaded');
-            }
-          })
-          .catch(function() {});
-      });
-    })();
-
-    // Smooth scroll for nav links
-    document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(a) {
-      a.addEventListener('click', function(e) {
-        e.preventDefault();
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // close mobile nav
-          document.querySelector('.nav-links').classList.remove('open');
-        }
-      });
-    });
-
-    // Konami code -> pixel rain
-    (function() {
-      var seq = [38,38,40,40,37,39,37,39,66,65];
-      var pos = 0;
-      document.addEventListener('keydown', function(e) {
-        if (e.keyCode === seq[pos]) {
-          pos++;
-          if (pos === seq.length) {
-            pos = 0;
-            pixelRain();
-          }
-        } else {
-          pos = 0;
-        }
-      });
-
-      function pixelRain() {
-        var c = document.createElement('canvas');
-        c.style.cssText = 'position:fixed;inset:0;z-index:9998;pointer-events:none;';
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-        document.body.appendChild(c);
-        var ctx = c.getContext('2d');
-        var cols = Math.floor(c.width / 12);
-        var drops = [];
-        var chars = 'APHAUS01'.split('');
-        for (var i = 0; i < cols; i++) drops[i] = Math.random() * -50;
-
-        var frames = 0;
-        function fall() {
-          ctx.fillStyle = 'rgba(245, 241, 235, 0.08)';
-          ctx.fillRect(0, 0, c.width, c.height);
-          ctx.font = '10px Silkscreen, monospace';
-          for (var i = 0; i < cols; i++) {
-            var ch = chars[Math.floor(Math.random() * chars.length)];
-            var brightness = Math.random() * 0.4 + 0.1;
-            ctx.fillStyle = 'rgba(90, 78, 65, ' + brightness + ')';
-            ctx.fillText(ch, i * 12, drops[i] * 12);
-            if (drops[i] * 12 > c.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-          }
-          frames++;
-          if (frames < 180) requestAnimationFrame(fall);
-          else {
-            // fade out
-            var opacity = 1;
-            function fadeOut() {
-              opacity -= 0.03;
-              c.style.opacity = opacity;
-              if (opacity > 0) requestAnimationFrame(fadeOut);
-              else c.remove();
-            }
-            fadeOut();
-          }
-        }
-        fall();
-      }
-    })();
-
-    // Console easter egg
-    console.log(
-      '%c AP.HAUS ',
-      'background:#3d3530;color:#f5f1eb;font-family:monospace;font-size:20px;padding:8px 16px;'
-    );
-    console.log(
-      '%cAI research that ships as products.\n%chttps://github.com/Divagation',
-      'color:#5a4e41;font-family:monospace;font-size:12px;',
-      'color:#8a7a6a;font-family:monospace;font-size:11px;'
-    );
-  </script>
-
+  <script src="/main.js"></script>
 </body>
 </html>

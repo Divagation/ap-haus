@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products -- AP.HAUS</title>
+  <meta name="description" content="Research that ships. Every product is a direct output of our research program.">
+  <meta property="og:title" content="Products -- AP.HAUS">
+  <meta property="og:description" content="Flock agent multiplexer, Wren compression model. Open source tools from AP.HAUS.">
+  <meta property="og:image" content="https://ap.haus/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='24' width='4' height='4' fill='%233d3530'/><rect x='8' y='20' width='4' height='4' fill='%233d3530'/><rect x='12' y='16' width='4' height='4' fill='%233d3530'/><rect x='12' y='12' width='4' height='4' fill='%233d3530'/><rect x='16' y='8' width='4' height='4' fill='%233d3530' opacity='.6'/><rect x='24' y='24' width='4' height='4' fill='%233d3530'/><rect x='20' y='20' width='4' height='4' fill='%233d3530'/><rect x='16' y='16' width='4' height='4' fill='%233d3530'/><rect x='16' y='12' width='4' height='4' fill='%233d3530'/><rect x='8' y='20' width='16' height='4' fill='%233d3530' opacity='.15'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <canvas id="field"></canvas>
+  <div class="cursor-dot" id="cursor"></div>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">AP.HAUS</a>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/research/">RESEARCH</a>
+      <a href="/products/" class="active">PRODUCTS</a>
+      <a href="/posts/">WRITING</a>
+      <a href="/about/">ABOUT</a>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">PRODUCTS</p>
+        <p class="section-sub">Research that ships. Every product is a direct output of our research program.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-check"></div>
+
+  <!-- FLOCK -->
+  <section class="product-detail" id="flock">
+    <div class="container">
+      <div class="product-detail-card reveal">
+        <div class="product-detail-header">
+          <img class="product-icon" src="/flock-icon.png?v=2" alt="Flock">
+          <div>
+            <h2>FLOCK</h2>
+            <span class="product-type">AGENT MULTIPLEXER</span>
+          </div>
+        </div>
+
+        <div class="product-detail-body">
+          <p>Native macOS app for running multiple Claude Code sessions in parallel. Tabbed interface with 7 themes, agent mode, persistent memory, usage tracking, and Wren compression built in.</p>
+
+          <p>Born from a simple problem: Claude Code is powerful but single-threaded. Complex projects need multiple agents working simultaneously -- one researching, one coding, one testing. Flock gives each agent its own tab with isolated context while sharing a unified interface.</p>
+
+          <h3>FEATURES</h3>
+          <ul>
+            <li>Tabbed multiplexing for parallel Claude Code sessions</li>
+            <li>7 built-in themes with pixel-accurate rendering</li>
+            <li>Agent mode for autonomous multi-step workflows</li>
+            <li>Persistent memory across sessions</li>
+            <li>Real-time usage tracking and cost monitoring</li>
+            <li>Wren compression integration for token savings</li>
+            <li>Signed and notarized for macOS distribution</li>
+          </ul>
+
+          <h3>INSTALL</h3>
+          <pre>brew install --cask flock</pre>
+          <p>Or download the latest .pkg from GitHub Releases.</p>
+
+          <div class="product-detail-links">
+            <a href="https://github.com/Divagation/flock" class="btn primary" target="_blank" rel="noopener">GITHUB</a>
+            <a href="https://github.com/Divagation/flock/releases" class="btn" target="_blank" rel="noopener">RELEASES</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-diag"></div>
+
+  <!-- WREN -->
+  <section class="product-detail" id="wren">
+    <div class="container">
+      <div class="product-detail-card reveal">
+        <div class="product-detail-header">
+          <img class="product-icon" src="/wren-logo.png" alt="Wren">
+          <div>
+            <h2>WREN</h2>
+            <span class="product-type">COMPRESSION MODEL</span>
+          </div>
+        </div>
+
+        <div class="product-detail-body">
+          <p>LoRA fine-tuned 1.5B model for prompt compression. Achieves 60-80% token savings with minimal semantic loss. Runs locally on Apple Silicon via MLX with zero API costs.</p>
+
+          <p>Wren compresses at the input level rather than the model level. Instead of quantizing or pruning the model itself, it rewrites prompts and tool outputs to be more token-efficient while preserving the semantic content that drives model behavior. This means it works with any downstream model.</p>
+
+          <h3>CAPABILITIES</h3>
+          <ul>
+            <li>60-80% token reduction on typical prompts</li>
+            <li>Preserves semantic meaning and instruction signals</li>
+            <li>Local inference via MLX on Apple Silicon</li>
+            <li>MCP server for Claude Code integration</li>
+            <li>Integrated into Flock for automatic compression</li>
+            <li>Works with any downstream model or API</li>
+          </ul>
+
+          <h3>USAGE</h3>
+          <pre># As MCP server in Claude Code
+# Add to your claude config:
+{
+  "mcpServers": {
+    "wren": {
+      "command": "python3",
+      "args": ["-m", "wren.mcp"]
+    }
+  }
+}</pre>
+
+          <div class="product-detail-links">
+            <a href="https://github.com/Divagation/wren" class="btn primary" target="_blank" rel="noopener">GITHUB</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="dither dither-dot"></div>
+
+  <section class="contact">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">BUILD WITH US</p>
+        <p class="section-sub">Everything is open source. Star our repos, open issues, or fork and build on what we ship.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="https://github.com/Divagation" class="contact-link" target="_blank" rel="noopener">GITHUB / DIVAGATION</a>
+        <a href="mailto:hello@ap.haus" class="contact-link">EMAIL</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer-brand">AP.HAUS 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/Divagation" target="_blank" rel="noopener">GITHUB</a>
+      <a href="https://baa.haus" target="_blank" rel="noopener">BAA.HAUS</a>
+      <a href="#">TOP</a>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
